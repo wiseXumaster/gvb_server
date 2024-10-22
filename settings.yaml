@@ -2,7 +2,7 @@ mysql:
   host: 127.0.0.1
   port: 3306
   db: gvb_db
-  user: root
+  username: root
   password: root
   log_level: dev
 logger:
@@ -14,4 +14,4 @@ logger:
 system:
   host: "0.0.0.0"
   port: 8080
-  env: dev
+  env: release
