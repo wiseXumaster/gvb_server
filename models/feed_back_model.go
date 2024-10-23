@@ -1,6 +1,6 @@
 package models
 
-type FadeBackModel struct {
+type FeedBackModel struct {
 	MODEL
 	Email        string `gorm:"size:64" json:"email"`
 	Content      string `gorm:"size:128" json:"content"`
