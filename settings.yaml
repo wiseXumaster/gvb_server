@@ -19,7 +19,7 @@ system:
 site_info:
   created_at: "2024-10-22"
   bei_an: 鄂ICP备2024058587号
-  title: "123"
+  title: labulat
   qq_image: http://www.fengfengzhidao.com/static/my/img/footer/gg.png
   version: 1.0.0
   email: 3058524082.com
@@ -33,26 +33,28 @@ site_info:
   bilibili_url: https://space.bilibili.com/359151217
   gitee_url: https://gitee.com/fengfengzhidao
   github_url: https://github.com/fengfengzhidao
-jwt:
-  secret: xxX
-  expires: 48
-  issuer: xx
 qq:
-  app-id: "xx"
+  app_id: ""
   key: xx
   redirect: http://xx.xx.com/login?flag=qq
-email:
-  host: smtp.qq.com
-  port: 465
-  user: xxx@qq.com
-  password: XXX
-  default_from_email: 枫枫知道
-  use-ssl: XX
-  user-tls: xx
 qi_niu:
+  enable: false
   access_key: UMM-xx-FdRIf-xx
   secret_key: xx
   bucket: fengfengzhidao
   cdn: xx://xx.xx.com
   zone: XX
+  prefix: ""
   size: 5
+email:
+  host: smtp.qq.com
+  port: 465
+  user: 3058524082@qq.com
+  password: XXX
+  default_from_email: 老tcoding
+  use_ssl: false
+  user_tls: false
+jwt:
+  secret: xxx
+  expires: 48
+  issuer: xx
