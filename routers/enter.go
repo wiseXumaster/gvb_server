@@ -22,6 +22,7 @@ func InitRouter() *gin.Engine {
 	// 路由分层
 	// 系统配置api
 	routerGroupApp.SettingsRouter()
+	routerGroupApp.ImagesRouter()
 
 	//b站弹幕:传入router,再给group会不会好些
 

@@ -58,3 +58,6 @@ jwt:
   secret: xxx
   expires: 48
   issuer: xx
+upload:
+  size: 2
+  path: uploads/file
