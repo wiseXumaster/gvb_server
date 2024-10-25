@@ -9,6 +9,7 @@ func (r RouterGroup) ImagesRouter() {
 	r.POST("images", imagesApi.ImageUploadView)
 	r.GET("images", imagesApi.ImageListView)
 	r.DELETE("images", imagesApi.ImageRemoveView)
+	r.PUT("images", imagesApi.ImageUpdateView)
 	//r.GET("settings", settingsApi.SettingsInfoView)
 	//r.PUT("settings", settingsApi.SettingsInfoUpdateView)
 	//r.GET("settings_email", settingsApi.SettingsEmailInfoView)
