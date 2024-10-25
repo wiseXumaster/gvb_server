@@ -5,7 +5,7 @@ mysql:
   username: root
   password: root
   log_level: dev
-  config: ""
+  config: "charset=utf8mb4&parseTime=True&loc=Local"
 logger:
   level: info
   prefix: '[gvb]'

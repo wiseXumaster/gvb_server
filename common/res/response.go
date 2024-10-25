@@ -24,12 +24,24 @@ func Result(code int, data any, msg string, c *gin.Context) {
 	})
 }
 
+type ListResponse[T any] struct {
+	Count int64 `json:"count"`
+	List  []T   `json:"list"`
+}
+
 func Ok(data any, msg string, c *gin.Context) {
 	Result(Success, data, msg, c)
 }
 
 func OkWithData(data any, c *gin.Context) {
 	Result(Success, data, "成功", c)
+}
+
+func OkWithList[T any](list []T, count int64, c *gin.Context) {
+	OkWithData(ListResponse[T]{
+		Count: count,
+		List:  list,
+	}, c)
 }
 
 func OkWithMessage(msg string, c *gin.Context) {
@@ -47,6 +59,7 @@ func Fail(data any, msg string, c *gin.Context) {
 //func FailWithData(data any, c *gin.Context) {
 //	Result(Error, data, "成功", c)
 //}
+
 func FailWithMessage(msg string, c *gin.Context) {
 	Result(Error, map[string]any{}, msg, c)
 }

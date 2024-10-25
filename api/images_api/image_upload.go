@@ -5,7 +5,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"gvb_server/common/res"
 	"gvb_server/global"
+	"gvb_server/models"
 	"gvb_server/utils"
+	"io"
 	"io/fs"
 	"os"
 	"path"
@@ -47,6 +49,7 @@ func (ImagesApi) ImageUploadView(c *gin.Context) {
 		res.FailWithMessage(err.Error(), c)
 		return
 	}
+	//fmt.Println(form.File)
 	fileList, ok := form.File["images"]
 	if !ok {
 		res.FailWithMessage("不存在的文件", c)
@@ -91,8 +94,29 @@ func (ImagesApi) ImageUploadView(c *gin.Context) {
 			})
 			continue
 		}
+
+		fileObj, err := file.Open()
+		if err != nil {
+			global.Log.Error(err)
+		}
+		byteData, err := io.ReadAll(fileObj)
+		//md5String := utils.Md5(byteData)
+		imageHash := utils.Md5(byteData)
+		//fmt.Println(md5String)
+		//去数据库中查询这个图片是否存在
+		var bannerModel models.BannerModel
+		err = global.DB.Take(&bannerModel, "hash = ?", imageHash).Error
+		if err == nil {
+			//找到了
+			resList = append(resList, FileUploadResponse{
+				FileName:  bannerModel.Path,
+				IsSuccess: false,
+				Msg:       "图片已存在",
+			})
+			continue
+		}
 		// 上传
-		err := c.SaveUploadedFile(file, filePath)
+		err = c.SaveUploadedFile(file, filePath)
 		// 上传失败
 		if err != nil {
 			global.Log.Error(err)
@@ -108,6 +132,12 @@ func (ImagesApi) ImageUploadView(c *gin.Context) {
 			FileName:  filePath,
 			IsSuccess: true,
 			Msg:       "上传成功",
+		})
+		// 图片入库
+		global.DB.Create(&models.BannerModel{
+			Path: filePath,
+			Hash: imageHash,
+			Name: fileName,
 		})
 		//err := c.SaveUploadedFile(file, filePath)
 		//if err != nil {
