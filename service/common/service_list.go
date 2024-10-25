@@ -16,16 +16,18 @@ func ComList[T any](model T, option Option) (list []T, count int64, err error) {
 	if option.Debug {
 		DB = global.DB.Session(&gorm.Session{Logger: global.MysqlLog})
 	}
-	if option.PageInfo.Page < 1 {
-		option.PageInfo.Page = 1
+	if option.Page < 1 {
+		option.Page = 1
 	}
 	if option.PageInfo.Limit <= 0 {
-		option.PageInfo.Limit = 10 // 设置一个默认值
+		option.Limit = 10 // 设置一个默认值
 	}
 	offset := (option.PageInfo.Page - 1) * option.PageInfo.Limit
-
+	if option.Sort == "" {
+		option.Sort = "created_at desc"
+	}
 	DB.Model(&model).Count(&count)
-	err = DB.Limit(option.PageInfo.Limit).Offset(offset).Find(&list).Error
+	err = DB.Limit(option.PageInfo.Limit).Offset(offset).Order(option.Sort).Find(&list).Error
 
 	//var imageList []models.BannerModel
 
