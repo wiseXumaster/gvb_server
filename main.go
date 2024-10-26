@@ -25,7 +25,6 @@ func main() {
 		cmd.SwitchOption(option)
 		return
 	}
-
 	//fmt.Println(global.DB)
 	//fmt.Println(global.Config)
 	router := routers.InitRouter()

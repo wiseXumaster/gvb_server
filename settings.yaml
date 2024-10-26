@@ -38,13 +38,21 @@ qq:
   key: xx
   redirect: http://xx.xx.com/login?flag=qq
 qi_niu:
-  enable: false
-  access_key: UMM-xx-FdRIf-xx
-  secret_key: xx
-  bucket: fengfengzhidao
-  cdn: xx://xx.xx.com
-  zone: XX
-  prefix: ""
+  enable: true
+  access_key: pJBm8P0Bxu06pfGb_vD1vLFt_6ITfciVPscy00zN
+  secret_key: vyMt5vXvm_Vyf2vBYIH0pH4jkwNkD_yS1-qa93rt
+  bucket: hbbxht
+  cdn: https://sly9bn5nh.hn-bkt.clouddn.com/
+  zone: z2
+  prefix: "gvb"
+  size: 5
+hua_wei:
+  enable: true
+  access_key: 7ID4LNWHGNBQYNBUUATW
+  secret_key: zx9cV95JlcYdp9axnvAwQ2D1te6w10gSi9OSL6Gl
+  bucket: tblog
+  end_point: obs.cn-east-3.myhuaweicloud.com
+  prefix: "gvb"
   size: 5
 email:
   host: smtp.qq.com
