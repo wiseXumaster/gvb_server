@@ -35,7 +35,7 @@ func Ok(data any, msg string, c *gin.Context) {
 }
 
 func OkWithData(data any, c *gin.Context) {
-	Result(Success, data, "成功", c)
+	Result(Success, data, "请求成功", c)
 }
 
 func OkWithList[T any](list []T, count int64, c *gin.Context) {
@@ -56,10 +56,6 @@ func OkWithSuccess(c *gin.Context) {
 func Fail(data any, msg string, c *gin.Context) {
 	Result(Error, data, msg, c)
 }
-
-//func FailWithData(data any, c *gin.Context) {
-//	Result(Error, data, "成功", c)
-//}
 
 func FailWithMessage(msg string, c *gin.Context) {
 	Result(Error, map[string]any{}, msg, c)

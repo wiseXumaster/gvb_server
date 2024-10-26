@@ -69,8 +69,8 @@ func UploadImage(data []byte, imageName string, prefix string) (filePath string,
 	if err != nil {
 		return "", err
 	}
-	global.Log.Info(q.CDN)
-	global.Log.Info(ret.Key)
+	//global.Log.Info(q.CDN)
+	//global.Log.Info(ret.Key)
 	return fmt.Sprintf("%s%s", q.CDN, ret.Key), nil
 
 }

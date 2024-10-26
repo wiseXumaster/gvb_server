@@ -47,7 +47,7 @@ qi_niu:
   prefix: "gvb"
   size: 5
 hua_wei:
-  enable: true
+  enable: false
   access_key: 7ID4LNWHGNBQYNBUUATW
   secret_key: zx9cV95JlcYdp9axnvAwQ2D1te6w10gSi9OSL6Gl
   bucket: tblog
