@@ -18,6 +18,7 @@ func (ImagesApi) ImageListView(c *gin.Context) {
 	list, count, err := common.ComList(models.BannerModel{}, common.Option{
 		PageInfo: cr,
 		Debug:    false,
+		//ModelType: "BannerModel",
 	})
 	// 确保 page 和 limit 的值合理
 

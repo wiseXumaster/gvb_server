@@ -40,8 +40,8 @@ func OkWithData(data any, c *gin.Context) {
 
 func OkWithList[T any](list []T, count int64, c *gin.Context) {
 	OkWithData(ListResponse[T]{
-		Count: count,
 		List:  list,
+		Count: count,
 	}, c)
 }
 

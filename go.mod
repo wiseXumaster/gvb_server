@@ -22,6 +22,7 @@ require (
 	github.com/cloudwego/iasm v0.2.0 // indirect
 	github.com/elastic/go-sysinfo v1.13.0 // indirect
 	github.com/elastic/go-windows v1.0.2 // indirect
+	github.com/fatih/structs v1.1.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	github.com/gammazero/toposort v0.1.1 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
