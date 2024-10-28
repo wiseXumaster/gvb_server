@@ -7,7 +7,15 @@ import (
 	"gvb_server/service/common"
 )
 
-//图片列表
+// ImageListView 图片列表
+// @Tags 图片管理
+// @Summary 获取图片列表
+// @Description 获取分页的图片列表
+// @Param page query int false "当前页码"
+// @Param page_size query int false "每页大小"
+// @Router /api/images [get]
+// @Produce json
+// @Success 200 {object} res.Response{data=res.ListResponse[models.BannerModel]}
 func (ImagesApi) ImageListView(c *gin.Context) {
 	var cr models.PageInfo
 	err := c.ShouldBindQuery(&cr)
