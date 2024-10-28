@@ -15,6 +15,14 @@ type AdvertRequest struct {
 	IsShow bool `json:"is_show" msg:"请选择是否展示广告" structs:"is_show"` // 是否展示
 }
 
+// AdvertCreateView 创建广告
+// @Tags 广告管理
+// @Summary 创建广告
+// @Description 创建广告
+// @Param data body AdvertRequest true "广告参数"
+// @Router /api/adverts [post]
+// @Produce json
+// @Success 200 {object} res.Response{}
 func (AdvertsApi) AdvertCreateView(c *gin.Context) {
 	var cr AdvertRequest
 

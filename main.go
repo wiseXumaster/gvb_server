@@ -5,11 +5,17 @@ import (
 	"github.com/go-playground/validator/v10"
 	"gvb_server/cmd"
 	"gvb_server/core"
+	_ "gvb_server/docs"
 	"gvb_server/global"
 	"gvb_server/routers"
 	"gvb_server/utils"
 )
 
+// @title gvb_server API文档
+// @version 1.0
+// @description gvb_server API文档
+// @host localhost:8080
+// @BasePath /
 func main() {
 	// 读取配置文件
 	core.InitConf()
