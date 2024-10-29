@@ -9,4 +9,5 @@ func (r RouterGroup) MenusRouter() {
 	r.POST("menus", MenusApi.MenuCreateView)
 	r.GET("menus", MenusApi.MenuListView)
 	r.GET("menus_air", MenusApi.MenuAirList)
+	r.PUT("menus/:id", MenusApi.MenuUpdateView)
 }

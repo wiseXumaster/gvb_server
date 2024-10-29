@@ -2,6 +2,7 @@ package menus_api
 
 import (
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 	"gvb_server/common/res"
 	"gvb_server/global"
 	"gvb_server/models"
@@ -12,9 +13,10 @@ type ImageSort struct {
 	ImageID uint `json:"image_id"`
 	Sort    int  `json:"sort"`
 }
+
 type MenuRequest struct {
-	MenuTitle     string      `json:"menu_title" msg:"请完善菜单名称" structs:"title"`
-	MenuTitleEn   string      `json:"menu_title_en" msg:"请完善菜单英文名称" structs:"title"`
+	MenuTitle     string      `json:"menu_title" msg:"请完善菜单名称" structs:"menu_title"`
+	MenuTitleEn   string      `json:"menu_title_en" msg:"请完善菜单英文名称" structs:"menu_title_en"`
 	Path          string      `json:"path" binding:"required" msg:"请完善菜单路径" structs:"path"`
 	Slogan        string      `json:"slogan" structs:"slogan"`
 	Abstract      ctype.Array `json:"abstract" structs:"abstract"`
@@ -41,10 +43,7 @@ func (MenusApi) MenuCreateView(c *gin.Context) {
 		return
 	}
 
-	//重复值判断
-
-	//创建bannner数据入库
-
+	// 创建菜单模型实例
 	menuModel := models.MenuModel{
 		MenuTitle:    cr.MenuTitle,
 		MenuTitleEn:  cr.MenuTitleEn,
@@ -56,36 +55,42 @@ func (MenusApi) MenuCreateView(c *gin.Context) {
 		Sort:         cr.Sort,
 	}
 
-	err = global.DB.Create(&menuModel).Error
+	// 启动事务来确保菜单创建和图片关联的一致性
+	err = global.DB.Transaction(func(tx *gorm.DB) error {
+		// 创建菜单记录
+		if err := tx.Create(&menuModel).Error; err != nil {
+			return err
+		}
+
+		// 如果没有图片需要关联，直接返回
+		if len(cr.ImageSortList) == 0 {
+			return nil // 直接结束事务，菜单已创建，无需关联图片
+		}
+
+		// 构建菜单与图片的关联记录
+		var menuBannerList []models.MenuBannerModel
+		for _, sort := range cr.ImageSortList {
+			menuBannerList = append(menuBannerList, models.MenuBannerModel{
+				MenuID:   menuModel.ID,
+				BannerID: sort.ImageID,
+				Sort:     sort.Sort,
+			})
+		}
+
+		// 将关联数据插入数据库
+		if err := tx.Create(&menuBannerList).Error; err != nil {
+			return err // 如果插入失败，事务回滚
+		}
+
+		return nil
+	})
+
+	// 检查事务结果
 	if err != nil {
 		global.Log.Error(err)
-		res.FailWithMessage("菜单添加失败", c)
+		res.FailWithMessage("菜单添加失败或图片关联失败", c)
 		return
 	}
 
-	// 不用关联图片
-	if len(cr.ImageSortList) == 0 {
-		res.OkWithMessage("菜单添加成功", c)
-		return
-	}
-
-	//菜单图片list
-	var menuBannerList []models.MenuBannerModel
-
-	for _, sort := range cr.ImageSortList {
-		menuBannerList = append(menuBannerList, models.MenuBannerModel{
-			MenuID:   menuModel.ID,
-			BannerID: sort.ImageID,
-			Sort:     sort.Sort,
-		})
-	}
-
-	// 入库关联表
-	err = global.DB.Create(&menuBannerList).Error
-	if err != nil {
-		global.Log.Error(err)
-		res.FailWithMessage("菜单图片关联失败", c)
-		return
-	}
 	res.OkWithMessage("菜单添加成功", c)
 }

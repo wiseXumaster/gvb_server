@@ -10,7 +10,16 @@ import (
 	"os"
 )
 
-//上传单个图片,返回图片的url
+// ImageUploadView 上传图片
+// @Tags 图片管理
+// @Summary 上传单个或多个图片
+// @Description 上传图片并返回上传成功的图片 URL
+// @Accept multipart/form-data
+// @Param images formData file true "上传的图片文件，支持多个文件"
+// @Produce json
+// @Success 200 {object} res.Response{data=[]image_ser.FileUploadResponse} "图片上传成功，返回图片 URL 列表"
+// @Failure 400 {object} res.Response{msg=string} "请求解析错误或文件不存在"
+// @Router /api/images [post]
 func (ImagesApi) ImageUploadView(c *gin.Context) {
 	// 上传多个图片
 	form, err := c.MultipartForm()
