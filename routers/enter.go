@@ -27,6 +27,7 @@ func InitRouter() *gin.Engine {
 	routerGroupApp.SettingsRouter()
 	routerGroupApp.ImagesRouter()
 	routerGroupApp.AdvertsRouter()
+	routerGroupApp.MenusRouter()
 
 	//b站弹幕:传入router,再给group会不会好些
 	//router.Run()
