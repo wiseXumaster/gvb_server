@@ -11,4 +11,5 @@ func (r RouterGroup) MenusRouter() {
 	r.GET("menus_air", MenusApi.MenuAirList)
 	r.PUT("menus/:id", MenusApi.MenuUpdateView)
 	r.DELETE("menus", MenusApi.MenuRemoveView)
+	r.GET("menus/:id", MenusApi.MenuDetailView)
 }

@@ -22,7 +22,6 @@ type MenuNameResponse struct {
 // @Router /api/menus_air [get]
 func (MenusApi) MenuAirList(c *gin.Context) {
 	var menuNameList []MenuNameResponse
-	//global.DB.Model(models.MenuModel{}).Select("id", "title", "path").Scan(&menuNameList)
 	global.DB.Model(models.MenuModel{}).Select("id", "menu_title as title", "path").Scan(&menuNameList)
 	res.OkWithData(menuNameList, c)
 }
