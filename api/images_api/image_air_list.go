@@ -13,12 +13,12 @@ type ImageResponse struct {
 	Name string `json:"name"`
 }
 
-// ImageAirListView 获取图片轻量列表
+// ImageAirListView 获取图片简要列表
 // @Tags 图片管理
-// @Summary 获取图片轻量列表
-// @Description 获取分页的图片轻量列表，仅返回图片的基本信息（id, path, name）
+// @Summary 获取图片简要列表
+// @Description 获取分页的图片简要列表，仅返回图片的基本信息（id, path, name）
 // @Produce json
-// @Success 200 {object} res.Response{data=[]ImageResponse,msg=string} "请求成功"
+// @Success 200 {object} res.Response{data=[]ImageResponse}
 // @Router /api/images_air [get]
 func (ImagesApi) ImageAirListView(c *gin.Context) {
 	var imageList []ImageResponse

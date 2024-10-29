@@ -7,4 +7,6 @@ import (
 func (r RouterGroup) MenusRouter() {
 	MenusApi := api.ApiGroupApp.MenusApi
 	r.POST("menus", MenusApi.MenuCreateView)
+	r.GET("menus", MenusApi.MenuListView)
+	r.GET("menus_air", MenusApi.MenuAirList)
 }
