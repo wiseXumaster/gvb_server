@@ -37,7 +37,8 @@ func (MenusApi) MenuListView(c *gin.Context) {
 	// 构建响应数据
 	var menus []MenuResponse
 	for _, menu := range menuList {
-		var banners []Banner
+		//banners := []Banner{}
+		var banners = make([]Banner, 0)
 		for _, banner := range menu.Banners {
 			banners = append(banners, Banner{
 				ID:   banner.ID,
