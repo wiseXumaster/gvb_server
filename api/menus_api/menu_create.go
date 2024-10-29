@@ -20,10 +20,10 @@ type MenuRequest struct {
 	Path          string      `json:"path" binding:"required" msg:"请完善菜单路径" structs:"path"`
 	Slogan        string      `json:"slogan" structs:"slogan"`
 	Abstract      ctype.Array `json:"abstract" structs:"abstract"`
-	AbstractTime  int         `json:"abstract_time" structs:"abstract_time"`                // 切换的时间，单位秒
-	BannerTime    int         `json:"banner_time" structs:"banner_time"`                    // 切换的时间，单位秒
+	AbstractTime  int         `json:"abstract_time" structs:"abstract_time"`                       // 切换的时间，单位秒
+	BannerTime    int         `json:"banner_time" structs:"banner_time"`                           // 切换的时间，单位秒
 	Sort          int         `json:"sort" binding:"required" msg:"请输入菜单序号" structs:"sort"` // 菜单的序号
-	ImageSortList []ImageSort `json:"image_sort_list" structs:"-"`                          // 具体图片的顺序
+	ImageSortList []ImageSort `json:"image_sort_list" structs:"-"`                                 // 具体图片的顺序
 }
 
 // MenuCreateView 创建菜单
@@ -40,6 +40,18 @@ func (MenusApi) MenuCreateView(c *gin.Context) {
 	err := c.ShouldBindJSON(&cr)
 	if err != nil {
 		res.FailWithError(err, &cr, c)
+		return
+	}
+
+	var existingMenu models.MenuModel
+	if err := global.DB.Where("menu_title = ? OR menu_title_en = ? OR path = ?", cr.MenuTitle, cr.MenuTitleEn, cr.Path).First(&existingMenu).Error; err == nil {
+		// 菜单已存在
+		res.FailWithMessage("菜单已存在", c)
+		return
+	} else if err != nil && err != gorm.ErrRecordNotFound {
+		// 数据库查询出错
+		global.Log.Error(err)
+		res.FailWithMessage("菜单检查失败", c)
 		return
 	}
 
