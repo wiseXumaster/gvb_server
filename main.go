@@ -36,6 +36,16 @@ func main() {
 	}
 
 	router := routers.InitRouter()
+
+	//router := gin.Default()
+	//
+	//// 配置CORS中间件，这里允许来自http://localhost:5173的跨域访问，可根据实际需求修改源地址
+	//router.Use(cors.New(cors.Config{
+	//	AllowOrigins: []string{"http://localhost:5173"},
+	//	AllowMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+	//	AllowHeaders: []string{"Content-Type", "Authorization"},
+	//}))
+
 	addr := global.Config.System.Addr()
 	global.Log.Infof("gvb_server运行在: %s", addr)
 	err := router.Run(addr)
