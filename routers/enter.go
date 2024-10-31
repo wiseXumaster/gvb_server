@@ -16,11 +16,18 @@ type RouterGroup struct {
 func InitRouter() *gin.Engine {
 	gin.SetMode(global.Config.System.Env)
 	router := gin.Default()
+	// 配置跨域请求，允许 HTTP 请求
 	router.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"http://localhost"},
+		AllowOrigins: []string{"http://localhost"}, // 改为 HTTPS
 		AllowMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowHeaders: []string{"Content-Type", "Authorization"},
 	}))
+	// 配置跨域请求，允许 HTTPS 请求
+	//router.Use(cors.New(cors.Config{
+	//	AllowOrigins: []string{"https://localhost"}, // 改为 HTTPS
+	//	AllowMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+	//	AllowHeaders: []string{"Content-Type", "Authorization"},
+	//}))
 	//router.Use(cors.Default())
 	// 路由分组
 	apiRouterGroup := router.Group("api")

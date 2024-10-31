@@ -1,6 +1,7 @@
 package images_api
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"gvb_server/common/res"
 	"gvb_server/global"
@@ -27,7 +28,7 @@ func (ImagesApi) ImageUploadView(c *gin.Context) {
 		res.FailWithMessage(err.Error(), c)
 		return
 	}
-	//fmt.Println(form.File)
+	fmt.Println(form.File)
 	fileList, ok := form.File["images"]
 	if !ok {
 		res.FailWithMessage("不存在的文件", c)

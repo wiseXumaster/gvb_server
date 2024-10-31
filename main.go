@@ -52,4 +52,9 @@ func main() {
 	if err != nil {
 		global.Log.Fatalf(err.Error())
 	}
+	// 启动 HTTPS 服务器
+	//err := router.RunTLS(addr, "/path/to/your_certificate.crt", "/path/to/your_key.key")
+	//if err != nil {
+	//	global.Log.Fatalf("Failed to start HTTPS server: %s", err.Error())
+	//}
 }
